@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/client.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Chat</title>
+</head>
+
+<body>
+
+    <div id="loginmaske" style="display:none;margin-top:4rem">
+        <form action="javascript:void(0);" autocomplete="off">
+            <center>
+                <input type="text" placeholder="Dein Name" id="usr">
+                <br>
+                <br>
+                <button id="login" class="btn">Operator Login</button>
+            </center>
+        </form>
+    </div>
+
+    <h2 id="room-name" style="display:none;"></h2>
+    <ul id="users" style="display:none;"></ul>
+
+    <!--  <ul id="messages"></ul> -->
+    <div class="chat-messages"></div>
+
+    <form id="chat" action="javascript:void(0);">
+        <center><input id="m" autocomplete="off" placeholder="Deine Nachricht" style="width: 70%" /></center>
+    </form>
+
+
+
+
+
+
+
+</body>
+
+</html>

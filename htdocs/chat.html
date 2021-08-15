@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/client.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>User Chat</title>
+</head>
+
+<body>
+
+    <div id="loginmaske" style="display:none;margin-top:4rem">
+        <form action="javascript:void(0);" autocomplete="off">
+            <center>
+                <input type="text" placeholder="Dein Name" id="usr">
+                <input type="hidden" id="room" value="room001">
+                <br>
+                <br>
+                <button id="login" class="btn">Login</button>
+            </center>
+        </form>
+    </div>
+
+    <h2 id="room-name" style="display:none"></h2>
+    <ul id="users" style="display:none"></ul>
+
+
+    <div class="chat-messages"></div>
+
+    <div id="chat" style="background:#000;height:50px;line-height:50px">
+        <center>
+            <input id="m" autocomplete="off" placeholder="Deine Nachricht" style="width: 90%" />
+            <input type="hidden" id="ReceiversSocketId" />
+        </center>
+    </div>
+
+
+
+</body>
+
+</html>

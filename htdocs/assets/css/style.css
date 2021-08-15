@@ -1,0 +1,204 @@
+/*
+ ____  ___  _____    __        __ ___   ____   _  __ _____  ____
+| __ )|_ _||_   _|   \ \      / // _ \ |  _ \ | |/ /| ____||  _ \
+|  _ \ | |   | | _____\ \ /\ / /| | | || |_) || ' / |  _|  | |_) |
+| |_) || |   | ||_____|\ V  V / | |_| ||  _ < | . \ | |___ |  _ <
+|____/|___|  |_|        \_/\_/   \___/ |_| \_\|_|\_\|_____||_| \_\
+
+Handcrafted pixels
+
+*/
+@charset "UTF-8";
+
+@font-face {
+    font-family: barna-stencil;
+    src: url("../fonts/BarnaStencil-Bold.woff2") format("woff2");
+    font-display: fallback;
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: barna;
+    src: url("../fonts/Barna-Regular.woff2") format("woff2");
+    font-display: fallback;
+    font-style: normal;
+    font-weight: 400;
+}
+
+html {
+    /* scrollbar-color: #e15d10 #e15d10; */
+    /*  scrollbar-width: thin; */
+}
+
+body {
+    font-family: "barna";
+    background-color: #000000;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#chat {
+    position: fixed;
+    bottom: 2px;
+    width: 100%;
+}
+
+#chat input {
+    font-family: "barna";
+    border: 0;
+    padding: 7px;
+    width: 90%;
+    color: white;
+    font-size: 1rem;
+    background: #15151b;
+    border-radius: 200px;
+}
+
+#chat input:focus {
+    outline: 1px solid #e15d10;
+}
+
+#chat button {
+    width: 10%;
+    background: #e15d10;
+    border: none;
+    font-size: 25px;
+    color: white;
+    padding: 10px;
+}
+
+/**
+*
+* Login
+*
+*/
+#loginmaske input {
+    background-color: #1d1f25;
+    border: 0 none;
+    padding: 1rem;
+    border-radius: 200px;
+    color: #6b6d6f;
+    width: 80%;
+}
+
+#loginmaske input:focus {
+    background-color: #1d1f25;
+    color: #6b6d6f;
+    outline: 1px solid #e15d10;
+}
+
+#loginmaske .btn {
+    background: #e15d10;
+    border-radius: 200px;
+    -moz-user-select: none;
+    text-transform: uppercase;
+    font-family: barna, sans-serif;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 0;
+    margin-bottom: 0;
+    padding: 27px 44px;
+    cursor: pointer;
+    transition: color 0.4s linear;
+    position: relative;
+    z-index: 1;
+    border: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+#loginmaske .btn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 101%;
+    height: 101%;
+    background: #b4480a;
+    z-index: 1;
+    border-radius: 5px;
+    transition: transform 1.1s;
+    transition-timing-function: ease;
+    transform-origin: 0 0;
+    transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    transform: scaleX(0);
+    border-radius: 0;
+}
+
+#loginmaske .btn:hover::before {
+    transform: scaleX(1);
+    color: #fff !important;
+    z-index: -1;
+}
+
+/**
+*
+* ChatCord
+*
+*/
+.chat-messages {
+    max-height: 80vh;
+    height: 80vh;
+    overflow-y: scroll;
+    color: white;
+}
+
+.chat-messages .message {
+    width: 80%;
+    padding: 5px;
+    margin-bottom: 5px;
+    background: #15151b;
+    border-radius: 10px;
+}
+
+.chat-messages .message .meta {
+    font-size: 0.7rem;
+    color: #cccccc;
+    /* padding: 0.4rem; */
+    /* padding-left: 0; */
+    padding: 0;
+    padding-bottom: 0.4rem;
+    margin: 0;
+}
+
+.chat-messages .message .text {
+    margin: 0;
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+/**
+* Operator Message Style
+*/
+.chat-messages .operator {
+    width: 80%;
+    background: #15151b;
+    /* place box right an d keep linebreak */
+    margin-left: auto;
+    margin-right: 0;
+    margin-bottom: 5px;
+}
+
+.usrbild_chatbot {
+    background: #15151b url("../img/chatbot.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: 40px 40px !important;
+    background-position: top right !important;
+}
+
+.usrbild_operator {
+    background: #15151b url("../img/nh.png") !important;
+    background-repeat: no-repeat !important;
+    background-size: 40px 40px !important;
+    background-position: top right !important;
+}
+
+/* .chat-messages .message .meta span {
+    color: white;
+} */
