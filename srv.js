@@ -6,6 +6,8 @@ const app = express();
 const formatMessage = require("./utils/messages");
 const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = require("./utils/users");
 
+console.log("Current directory: " + process.cwd());
+
 /**
  *
  *
@@ -38,7 +40,7 @@ const Server = https.createServer(
 );
 
 const io = require("socket.io")(Server);
-app.use(express.static("htdocs")); // server folder 'htdocs'
+app.use(express.static(process.cwd() + "/htdocs")); // server folder 'htdocs'
 const port = 3000;
 const botName = "ChatBot";
 

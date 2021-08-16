@@ -3,7 +3,7 @@
 # Install howto
 
 1.) Checkout
-2.) npm install 
+2.) npm install
 
 Based on an idea from Chatcord - Chatserver with rooms - https://github.com/bradtraversy/chatcord
 
@@ -16,3 +16,7 @@ https://medium.com/flutter-community/realtime-chat-app-one-to-one-using-flutter-
 https://socket.io/docs/v3/rooms/index.html -- rooms
 
 https://socket.io/docs/v3/emit-cheatsheet/index.html
+
+### Startscript
+
+https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/
