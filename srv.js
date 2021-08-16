@@ -62,8 +62,6 @@ io.on("connection", (socket) => {
                 if (operator.id != socket.id) {
                     socket.emit("message", formatMessage(botName, `Willkommen ${user.username}. Ein Operator wird gesucht. Einen Augenblick...`));
                 }
-            } else {
-                socket.emit("message", formatMessage(botName, `Willkommen ${user.username}. Ein Operator wird gesucht. Einen Augenblick...`)); // Kein Operaotr(Nick) ist online.
             }
 
             /**
