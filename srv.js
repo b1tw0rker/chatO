@@ -6,8 +6,6 @@ const app = express();
 const formatMessage = require("./utils/messages");
 const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = require("./utils/users");
 
-console.log("Current directory: " + process.cwd());
-
 /**
  *
  *
