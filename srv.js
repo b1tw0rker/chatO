@@ -17,10 +17,14 @@ const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = req
 
 // https://www.section.io/engineering-education/how-to-use-cors-in-nodejs-with-express/
 // http://expressjs.com/en/resources/middleware/cors.html
+// https://socket.io/docs/v3/handling-cors/
 app.use(
     cors({
-        //origin: ["https://www.section.io", "https://www.google.com/"],
-        origin: "*",
+        origin: ["https://www.bitw0rker.de", "https://www.google.com/"],
+        //origin: "*",
+        methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true,
     })
 );
 
@@ -37,7 +41,17 @@ const Server = https.createServer(
     app
 );
 
-const io = require("socket.io")(Server);
+//const io = require("socket.io")(Server);
+const io = require("socket.io")(Server, {
+    cors: {
+        origin: ["https://www.bitw0rker.de", "https://www.google.com/"],
+        //origin: "*",
+        methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true,
+    },
+});
+
 app.use(express.static(process.cwd() + "/htdocs")); // server folder 'htdocs'
 const port = 3000;
 const botName = "ChatBot";
@@ -86,7 +100,7 @@ io.on("connection", (socket) => {
             }
         }
     });
-    //console.log("✅ New User joined chat.");
+    console.log("✅ New User joined chat.");
     io.emit("userJoin", { for: "everyone" });
 
     /**
