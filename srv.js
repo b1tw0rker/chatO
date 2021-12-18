@@ -20,7 +20,7 @@ const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = req
 // https://socket.io/docs/v3/handling-cors/
 app.use(
     cors({
-        origin: ["https://www.bitw0rker.de", "https://www.google.com/"],
+        origin: ["https://www.host-x.de", "https://www.google.com/"],
         //origin: "*",
         methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
         allowedHeaders: ["my-custom-header"],
@@ -35,8 +35,8 @@ app.use(
  */
 const Server = https.createServer(
     {
-        key: fs.readFileSync("/etc/letsencrypt/live/www.bitw0rker.de/privkey.pem"),
-        cert: fs.readFileSync("/etc/letsencrypt/live/www.bitw0rker.de/cert.pem"),
+        key: fs.readFileSync("/etc/letsencrypt/live/www.host-x.de/privkey.pem"),
+        cert: fs.readFileSync("/etc/letsencrypt/live/www.host-x.de/cert.pem"),
     },
     app
 );
@@ -44,7 +44,7 @@ const Server = https.createServer(
 //const io = require("socket.io")(Server);
 const io = require("socket.io")(Server, {
     cors: {
-        origin: ["https://www.bitw0rker.de", "https://www.google.com/"],
+        origin: ["https://www.host-x.de", "https://www.google.com/"],
         //origin: "*",
         methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
         allowedHeaders: ["my-custom-header"],
