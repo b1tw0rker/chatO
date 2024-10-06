@@ -17,6 +17,28 @@ https://socket.io/docs/v3/rooms/index.html -- rooms
 
 https://socket.io/docs/v3/emit-cheatsheet/index.html
 
+https://socket.io/docs/v4/admin-ui/
+
 ### Startscript
 
 https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/
+
+### Linux StartScript
+
+[Unit]
+Description=chatO - Operator Chat System
+Documentation=https://www.host-x.de
+After=network.target
+
+[Service]
+Environment=NODE_PORT=3000
+Type=simple
+User=root
+ExecStart=/usr/bin/node /opt/chatO/srv.js
+Restart=on-failure
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/opt/chatO/
+
+[Install]
+WantedBy=multi-user.target
