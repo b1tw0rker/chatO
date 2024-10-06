@@ -1,5 +1,7 @@
 # ChatO
 
+![virtualXS version](https://img.shields.io/badge/version-v1.0.0-green.svg) ![Letztes Update](https://img.shields.io/github/last-commit/b1tw0rker/chatOsvg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 # Install howto
 
 1.) Checkout
