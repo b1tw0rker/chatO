@@ -1,46 +1,58 @@
 <!DOCTYPE html>
 <html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+    />
+
     <script src="./socket.io/socket.io.js"></script>
-    <script src="./assets/js/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./assets/js/client.js"></script>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>User Chat</title>
-</head>
+  </head>
 
-<body>
-
-    <div id="loginmaske" style="display:none;margin-top:4rem">
-        <form action="javascript:void(0);" autocomplete="off">
-            <center>
-                <input type="text" placeholder="Dein Name" id="usr" required>
-                <input type="hidden" id="room" value="room001">
-                <br>
-                <br>
-                <button id="login" class="btn">Chat starten</button>
-            </center>
-        </form>
+  <body>
+    <div id="loginmaske" style="display: none; margin-top: 4rem">
+      <form action="javascript:void(0);" autocomplete="off">
+        <center>
+          <input type="text" placeholder="Dein Name" id="usr" required />
+          <input type="hidden" id="room" value="room001" />
+          <br />
+          <br />
+          <button id="login" class="btn">Chat starten</button>
+        </center>
+      </form>
     </div>
 
-    <h2 id="room-name" style="display:none"></h2>
-    <ul id="users" style="display:none"></ul>
-
+    <h2 id="room-name" style="display: none"></h2>
+    <ul id="users" style="display: none"></ul>
 
     <div class="chat-messages"></div>
 
-    <div id="chat" style="background:#000;height:50px;line-height:50px">
-        <center>
-            <input id="m" autocomplete="off" placeholder="Deine Nachricht" style="width: 90%" />
-            <input type="hidden" id="ReceiversSocketId" />
-        </center>
+    <div
+      id="chat"
+      style="background: transparent; height: 50px; line-height: 50px"
+    >
+      <center>
+        <input
+          id="m"
+          autocomplete="off"
+          placeholder="Deine Nachricht"
+          style="width: 90%"
+        />
+        <input type="hidden" id="ReceiversSocketId" />
+      </center>
     </div>
-
-
-
-</body>
-
+  </body>
 </html>

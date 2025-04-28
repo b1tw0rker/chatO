@@ -5,31 +5,10 @@
 | |_) || |   | ||_____|\ V  V / | |_| ||  _ < | . \ | |___ |  _ <
 |____/|___|  |_|        \_/\_/   \___/ |_| \_\|_|\_\|_____||_| \_\
 
-Handcrafted pixels
+Handcrafted pixels by Dipl. Wirt.-Ing. Nick Herrmann
 
 */
 @charset "UTF-8";
-
-@font-face {
-    font-family: barna-stencil;
-    src: url("../fonts/BarnaStencil-Bold.woff2") format("woff2");
-    font-display: fallback;
-    font-style: normal;
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: barna;
-    src: url("../fonts/Barna-Regular.woff2") format("woff2");
-    font-display: fallback;
-    font-style: normal;
-    font-weight: 400;
-}
-
-html {
-    /* scrollbar-color: #e15d10 #e15d10; */
-    /*  scrollbar-width: thin; */
-}
 
 body {
     font-family: "barna";
@@ -160,8 +139,6 @@ body {
 .chat-messages .message .meta {
     font-size: 0.7rem;
     color: #cccccc;
-    /* padding: 0.4rem; */
-    /* padding-left: 0; */
     padding: 0;
     padding-bottom: 0.4rem;
     margin: 0;
@@ -199,6 +176,3 @@ body {
     background-position: top right !important;
 }
 
-/* .chat-messages .message .meta span {
-    color: white;
-} */
