@@ -1,5 +1,6 @@
 $(function () {
-    var socket = io();
+    //var socket = io();
+    var socket = io.connect( 'https://www.host-x.de:3000' ); 
 
     /**
      *

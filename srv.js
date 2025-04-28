@@ -6,13 +6,22 @@ const app = express();
 const formatMessage = require("./utils/messages");
 const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = require("./utils/users");
 
+/**
+ *
+ *
+ * TODO START THIS SERVER via Linux start stop script
+ * https://stackoverflow.com/questions/4018154/how-do-i-run-a-node-js-app-as-a-background-service/29042953#29042953
+ *
+ *
+ */
+
 // https://www.section.io/engineering-education/how-to-use-cors-in-nodejs-with-express/
 // http://expressjs.com/en/resources/middleware/cors.html
 // https://socket.io/docs/v3/handling-cors/
 app.use(
       cors({
-            origin: ["https://www.testdomain001.de", "https://www.google.com/"],
-            //origin: "*",
+            //origin: ["https://www.testdomain001.de", "https://www.google.com/"],
+            origin: "*",
             methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
             allowedHeaders: ["my-custom-header"],
             credentials: true,
@@ -34,13 +43,13 @@ const Server = https.createServer(
 
 //const io = require("socket.io")(Server);
 const io = require("socket.io")(Server, {
-      cors: {
-            origin: ["https://www.host-x.de", "https://www.google.de/"],
-            //origin: "*",
-            methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-            allowedHeaders: ["my-custom-header"],
-            credentials: true,
-      },
+    cors: {
+        origin: ["https://www.host-x.de", "https://www.google.com/"],
+        //origin: "*",
+        methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true,
+    },
 });
 
 app.use(express.static(process.cwd() + "/htdocs")); // server folder 'htdocs'
