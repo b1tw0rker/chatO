@@ -1,5 +1,8 @@
 $(function () {
-    //var socket = io();
+    /**
+     *
+     *
+     */
     var socket = io.connect('https://www.host-x.de:3000');
 
     /**
@@ -45,7 +48,11 @@ $(function () {
      * Send a new message
      *
      */
-    $('#chat').on('keydown', function (e) {
+    $('#bwChatSystem').on('keydown', function (e) {
+        /**
+         *
+         *
+         */
         if (e.key === 'Enter') {
             e.preventDefault();
             var ReceiversSocketId = $('#ReceiversSocketId').val();
@@ -82,7 +89,7 @@ $(function () {
      *
      */
     if (window.sessionStorage.getItem('usr') === null) {
-        $('#chat').fadeOut();
+        $('#bwChatSystem').fadeOut();
         $('#OperatorContainer').fadeOut(); // Opeatorpage only
         $('.chat-messages').fadeOut();
         $('#loginmaske').fadeIn();
@@ -97,7 +104,7 @@ $(function () {
         window.sessionStorage.setItem('room', room);
         $('#loginmaske').fadeOut();
         $('#OperatorContainer').fadeIn(); // Operatorpage only
-        $('#chat').fadeIn();
+        $('#bwChatSystem').fadeIn();
         $('.chat-messages').fadeIn();
         location.reload(); // reload page
         document.getElementById('m').focus();
@@ -129,32 +136,30 @@ function outputUsers(users) {
     });
 }
 
-// Output message to DOM
+/**
+ *
+ * Output message to DOM
+ *
+ */
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 
 function outputMessage(message) {
-    if (message.username == 'ChatBot') {
-        var class_message = 'operator avatarChatbot';
-    } else if (message.username == 'Nick') {
-        var class_message = 'operator avatarOperator';
-    } else {
-        var class_message = '';
-    }
-    /*     const div = document.createElement("div");
-    div.classList.add(class_message);
-    const p = document.createElement("p");
-    p.classList.add("meta");
-    p.innerText = message.username;
-    p.innerHTML += `<span>${message.time}</span>`;
-    div.appendChild(p);
-    const para = document.createElement("p");
-    para.classList.add("text");
-    para.innerText = message.text;
-    div.appendChild(para);
-    document.querySelector(".chat-messages").appendChild(div); */
-    //$("#ReceiversSocketId").val(message.from);
+    /**
+     *
+     *
+     */
+    let class_message = '';
 
+    if (message.username == 'ChatBot') {
+        class_message = 'operator avatarChatClient';
+    } else if (message.username == 'Nick') {
+        class_message = 'operator avatarOperator';
+    }
+
+    /**
+     *
+     */
     $('.chat-messages').append(
         $('<div class="message ' + class_message + '"><p class="meta">' + message.username + '<span> ' + message.time + '</span></p><p class="text">' + message.text + '</p></div>')
             .hide()
