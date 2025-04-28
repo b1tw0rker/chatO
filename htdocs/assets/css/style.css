@@ -10,9 +10,45 @@ Handcrafted pixels by Dipl. Wirt.-Ing. Nick Herrmann
 */
 @charset "UTF-8";
 
+:root {
+    /* Base colors */
+    --bw-white: #ffffff;
+    --bw-orange: #e15d10;
+    --bw-body-bg: #172b4a;
+    --bw-black: #000000;
+
+    /* Simplified dark tones */
+    --bw-dark-1: #0d1117; /* Darkest */
+    --bw-dark-2: #1f3a5f; /* Dark */
+    --bw-dark-3: #274876; /* Light dark */
+    --bw-chat-message: #102645; /* Light dark */
+
+    /* Simplified text colors */
+    --bw-txt: #898c91; /* Default text */
+    --bw-txt-light: #f2f2f2; /* Light text */
+
+    /* Simplified input colors */
+    --bw-input-placeholder: #777777; /* Placeholder */
+
+    /* Simplified border colors */
+    --bw-border-dark: #222222; /* Dark border */
+    --bw-border-light: #444444; /* Light border */
+
+    /* UI element colors */
+    --bw-button-accent: #ff6e48; /* Accent */
+    --bw-success-green: rgb(24, 107, 24); /* Success */
+    --bw-warning-orange: rgb(202, 136, 13); /* Warning */
+
+    /* Colors with transparency */
+    --bw-white-20: rgba(255, 255, 255, 0.2); /* Transparent white */
+    --bw-black-70: rgba(0, 0, 0, 0.7); /* Transparent black */
+
+    --bw-grid-dashboard: #191f2b;
+}
+
 body {
-    font-family: "barna";
-    background-color: #000000;
+    font-family: 'Outfit', sans-serif;
+    background-color: transparent;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -24,19 +60,24 @@ body {
     width: 100%;
 }
 
+/**
+*
+* Input Feld
+*
+*/
 #chat input {
-    font-family: "barna";
+    font-family: 'Outfit', sans-serif;
     border: 0;
     padding: 7px;
     width: 90%;
     color: white;
     font-size: 1rem;
-    background: #15151b;
+    background: var(--bw-dark-3);
     border-radius: 200px;
 }
 
 #chat input:focus {
-    outline: 1px solid #e15d10;
+    outline: 1px solid var(--bw-dark-1);
 }
 
 #chat button {
@@ -49,10 +90,10 @@ body {
 }
 
 /**
-*
-* Login
-*
-*/
+ *
+ * Login
+ *
+ */
 #loginmaske input {
     background-color: #1d1f25;
     border: 0 none;
@@ -93,7 +134,7 @@ body {
 }
 
 #loginmaske .btn::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     top: 0;
@@ -117,10 +158,10 @@ body {
 }
 
 /**
-*
-* ChatCord
-*
-*/
+ *
+ * ChatCord
+ *
+ */
 .chat-messages {
     max-height: 80vh;
     height: 80vh;
@@ -128,11 +169,16 @@ body {
     color: white;
 }
 
+/**
+*
+* Chat Message Style
+*
+*/
 .chat-messages .message {
     width: 80%;
     padding: 5px;
     margin-bottom: 5px;
-    background: #15151b;
+    background: var(--bw-chat-message);
     border-radius: 10px;
 }
 
@@ -151,28 +197,29 @@ body {
 }
 
 /**
-* Operator Message Style
-*/
+ *
+ * Operator Message Style
+ *
+ */
 .chat-messages .operator {
     width: 80%;
-    background: #15151b;
+    background: var(--bw-chat-message);
     /* place box right an d keep linebreak */
     margin-left: auto;
     margin-right: 0;
     margin-bottom: 5px;
 }
 
-.usrbild_chatbot {
-    background: #15151b url("../img/chatbot.png") !important;
+.avatarChatbot {
+    background: #15151b url('../img/chatbot.png') !important;
     background-repeat: no-repeat !important;
     background-size: 40px 40px !important;
     background-position: top right !important;
 }
 
-.usrbild_operator {
-    background: #15151b url("../img/nh.png") !important;
+.avatarOperator {
+    background: #15151b url('../img/nh.png') !important;
     background-repeat: no-repeat !important;
     background-size: 40px 40px !important;
     background-position: top right !important;
 }
-
