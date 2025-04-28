@@ -33,7 +33,7 @@
 /* Body styling */
 body {
     font-family: 'Outfit', sans-serif;
-    background-color: var(--bw-body-bg);
+    background-color: transparent;
     color: var(--bw-txt-light);
     width: 100%;
     margin: 0;
