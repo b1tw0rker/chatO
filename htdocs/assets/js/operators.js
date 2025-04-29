@@ -12,8 +12,8 @@ $(function () {
      */
     $('#users').on('click', 'li', function (e) {
         e.preventDefault();
-        var socketid = e.target.id;
-        var name = $(this).text();
+        let socketid = e.target.id;
+        let name = $(this).text();
         $('#ReceiversSocketId').val(socketid);
         $('#m').attr('placeholder', 'Deine Nachricht an ' + name);
         $('#users li').css('color', '#e15d10');

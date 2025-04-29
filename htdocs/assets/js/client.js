@@ -3,7 +3,7 @@ $(function () {
      *
      *
      */
-    var socket = io.connect('https://www.host-x.de:3000');
+    const socket = io.connect('https://www.host-x.de:3000');
 
     /**
      *
@@ -45,19 +45,19 @@ $(function () {
 
     /**
      *
-     * Send a new message
+     * Send a new message (Client and Operator use this)
      *
      */
-    $('#bwChatSystem').on('keydown', function (e) {
+    $('#bwChatSystemClient, #bwChatSystemOperator').on('keydown', function (e) {
         /**
          *
          *
          */
         if (e.key === 'Enter') {
             e.preventDefault();
-            var ReceiversSocketId = $('#ReceiversSocketId').val();
-            var path = window.location.pathname;
-            var page = path.split('/').pop();
+            let ReceiversSocketId = $('#ReceiversSocketId').val();
+            let path = window.location.pathname;
+            let page = path.split('/').pop();
 
             if (page == 'chat.html') {
                 ReceiversSocketId = '';
@@ -68,18 +68,23 @@ $(function () {
                 return;
             }
 
-            if ($('#m').val() == '') {
+            if ($('#msgOperator').val() == '') {
                 if (page == 'operator.html') {
                     alert('Message can not be empty');
                 }
                 return;
             }
-            // Emit Message
-            //socket.emit("chatMessage", $("#m").val());
-            socket.emit('ChatMessageOneToOne', { msg: $('#m').val(), ReceiversSocketId: ReceiversSocketId });
 
-            $('#m').val('');
-            $('#m').attr('placeholder', '');
+            // Emit Message
+            if (page == 'operator.html') {
+                socket.emit('ChatMessageOneToOne', { msg: $('#msgOperator').val(), ReceiversSocketId: ReceiversSocketId });
+                $('#msgOperator').val('');
+                $('#msgOperator').attr('placeholder', '');
+            } else {
+                socket.emit('ChatMessageOneToOne', { msg: $('#msg').val(), ReceiversSocketId: ReceiversSocketId });
+                $('#msg').val('');
+                $('#msg').attr('placeholder', '');
+            }
         }
     });
 
@@ -89,25 +94,38 @@ $(function () {
      *
      */
     if (window.sessionStorage.getItem('usr') === null) {
-        $('#bwChatSystem').fadeOut();
-        $('#OperatorContainer').fadeOut(); // Opeatorpage only
+        $('#bwChatSystemClient').fadeOut();
+        $('#OperatorContainer').fadeOut();
         $('.chat-messages').fadeOut();
         $('#loginmaske').fadeIn();
     }
 
     $('#loginmaske').submit(function (e) {
         e.preventDefault();
-        var usr = $('#usr').val();
-        var room = $('#room').val();
-        //var room = $("#usr").val();
+        /**
+         *
+         */
+        let usr = $('#usr').val();
+        let room = $('#room').val();
+
+        /**
+         *
+         */
         window.sessionStorage.setItem('usr', usr);
         window.sessionStorage.setItem('room', room);
+
+        /**
+         *
+         */
         $('#loginmaske').fadeOut();
-        $('#OperatorContainer').fadeIn(); // Operatorpage only
-        $('#bwChatSystem').fadeIn();
+        $('#OperatorContainer').fadeIn();
+        $('#bwChatSystemClient').fadeIn();
         $('.chat-messages').fadeIn();
+        /**
+         *
+         */
         location.reload(); // reload page
-        document.getElementById('m').focus();
+        document.getElementById('msg').focus();
     });
 });
 

@@ -25,7 +25,7 @@
                     <h3 class="text-center mb-4">Operator Login</h3>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Dein Name" id="usr" value="Nick" />
-                        <input type="hidden" id="room" value="room001" />
+                        <input type="hidden" id="room" value="www.host-x.de" />
                     </div>
                     <div class="d-grid">
                         <button id="login" class="btn btn-primary">Operator Login</button>
@@ -59,10 +59,10 @@
                 <div class="col-md-9 col-lg-10 chat-area">
                     <div class="chat-messages"></div>
 
-                    <!-- Chat Input -->
-                    <div id="bwChatSystem">
+                    <!-- Chat Input Operator -->
+                    <div id="bwChatSystemOperator">
                         <div class="input-group">
-                            <input type="text" id="m" class="form-control" autocomplete="off" placeholder="Deine Nachricht" />
+                            <input type="text" id="msgOperator" class="form-control" autocomplete="off" placeholder="Deine Nachricht" />
                             <input type="hidden" id="ReceiversSocketId" />
                             <button class="btn btn-primary" type="button">
                                 <i class="bi bi-send-fill"></i>

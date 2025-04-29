@@ -3,18 +3,15 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" />
-
         <script src="./socket.io/socket.io.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="./assets/js/client.min.js"></script>
-
         <link rel="stylesheet" href="./assets/css/style.min.css" />
-        <title>User Chat</title>
+        <title>Chat Client</title>
     </head>
 
     <body>
@@ -22,7 +19,7 @@
             <form action="javascript:void(0);" autocomplete="off">
                 <center>
                     <input type="text" placeholder="Dein Name" id="usr" required />
-                    <input type="hidden" id="room" value="room001" />
+                    <input type="hidden" id="room" value="www.host-x.de" />
                     <br />
                     <br />
                     <button id="login" class="btn">Chat starten</button>
@@ -30,14 +27,14 @@
             </form>
         </div>
 
-        <h2 id="room-name" style="display: none"></h2>
-        <ul id="users" style="display: none"></ul>
+        <div id="room-name" style="display: none"></div>
+        <div id="users" style="display: none"></div>
 
         <div class="chat-messages"></div>
 
-        <div id="bwChatSystem" style="background: transparent; height: 50px; line-height: 50px">
+        <div id="bwChatSystemClient" class="bwChatClient">
             <center>
-                <input id="m" autocomplete="off" placeholder="Deine Nachricht" style="width: 90%" />
+                <input id="msg" autocomplete="off" placeholder="Deine Nachricht" class="bwClientInput" />
                 <input type="hidden" id="ReceiversSocketId" />
             </center>
         </div>

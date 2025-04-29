@@ -184,39 +184,39 @@ body {
 }
 
 /* Input area styling */
-#bwChatSystem {
+#bwChatSystemOperator {
     padding: 15px;
     background-color: var(--sidebar-header-bg);
     border-top: 1px solid rgba(225, 93, 16, 0.2);
 }
 
-#bwChatSystem .input-group {
+#bwChatSystemOperator .input-group {
     background-color: transparent;
     border-radius: 25px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#bwChatSystem input {
+#bwChatSystemOperator input {
     font-family: 'Outfit', sans-serif;
     border: 0;
-    padding: 15px 20px;
     height: 50px;
     color: var(--bw-txt-light);
     font-size: 1rem;
     background: var(--bw-input-bg);
+    border-radius: 50px;
 }
 
-#bwChatSystem input::placeholder {
+#bwChatSystemOperator input::placeholder {
     color: var(--bw-input-placeholder);
 }
 
-#bwChatSystem input:focus {
+#bwChatSystemOperator input:focus {
     outline: none;
     box-shadow: 0 0 0 2px var(--bw-orange);
 }
 
-#bwChatSystem button {
+#bwChatSystemOperator button {
     background: var(--bw-orange);
     border: none;
     font-size: 1.2rem;
@@ -226,11 +226,37 @@ body {
     transition: background-color 0.2s;
 }
 
-#bwChatSystem button:hover {
+#bwChatSystemOperator button:hover {
     background-color: var(--bw-orange-light);
 }
 
-/* Login styling */
+/**
+ *
+ * Chat Client Specific Styles
+ *
+ */
+#bwChatSystemClient .bwChatClient {
+    background: transparent;
+    height: 50px;
+    line-height: 50px;
+}
+
+#bwChatSystemClient .bwClientInput {
+    font-family: 'Outfit', sans-serif;
+    width: 90%;
+    border: 0;
+    height: 50px;
+    color: var(--bw-txt-light);
+    font-size: 1rem;
+    background: var(--bw-input-bg);
+    border-radius: 50px;
+}
+
+/**
+ *
+ * Login styling
+ *
+ */
 #loginmaske {
     height: 100vh;
     display: flex;
