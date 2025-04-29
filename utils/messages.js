@@ -1,10 +1,10 @@
-const moment = require("moment");
+const moment = require('moment');
 
 function formatMessage(username, text, from) {
     return {
         username,
         text,
-        time: moment().locale("de").format(" h:mm"),
+        time: moment().locale('de').format('H:mm'),
         from: from,
     };
 }

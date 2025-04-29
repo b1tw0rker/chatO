@@ -60,9 +60,9 @@ io.on('connection', (socket) => {
      *
      * User joined the chat
      *
+     * https://stackoverflow.com/questions/20632401/how-to-send-two-variables-in-one-message-using-socket-io
+     *
      */
-    // socket.on("send-user-and-room-name", function (username, roomname) {
-    // https://stackoverflow.com/questions/20632401/how-to-send-two-variables-in-one-message-using-socket-io
     socket.on('send-user-and-room-name', ({ username, room }) => {
         if (username != '' && room != '') {
             /** */

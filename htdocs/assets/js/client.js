@@ -146,9 +146,15 @@ function outputRoomName(room) {
     document.getElementById('room-name').innerText = room;
 }
 
-// Add users to DOM
+/**
+ *
+ * Add users to DOM
+ *
+ */
 function outputUsers(users) {
+    /** */
     $('#users').html('');
+
     users.forEach((user) => {
         if (user.username != 'Nick') {
             $('#users').append(

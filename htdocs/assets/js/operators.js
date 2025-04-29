@@ -23,7 +23,7 @@ $(function () {
          *
          */
         $('#ReceiversSocketId').val(socketid);
-        $('#m').attr('placeholder', 'Deine Nachricht an ' + name);
+        $('#msg').attr('placeholder', 'Deine Nachricht an ' + name);
         $('#users li').css('color', '#e15d10');
         $(this).css('color', 'green');
     });
