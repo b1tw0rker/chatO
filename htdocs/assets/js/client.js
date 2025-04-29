@@ -11,8 +11,8 @@ $(function () {
      *
      */
     socket.on('userJoin', function (msg) {
-        if (window.sessionStorage.getItem('usr') !== null && window.sessionStorage.getItem('room') !== null) {
-            socket.emit('send-user-and-room-name', { username: window.sessionStorage.getItem('usr'), room: window.sessionStorage.getItem('room') }); // send username and room to server
+        if (window.localStorage.getItem('usr') !== null && window.localStorage.getItem('room') !== null) {
+            socket.emit('send-user-and-room-name', { username: window.localStorage.getItem('usr'), room: window.localStorage.getItem('room') }); // send username and room to server
         }
     });
 
@@ -55,11 +55,15 @@ $(function () {
          */
         if (e.key === 'Enter') {
             e.preventDefault();
+
+            /**
+             * Vars
+             */
             let ReceiversSocketId = $('#ReceiversSocketId').val();
             let path = window.location.pathname;
             let page = path.split('/').pop();
 
-            if (page == 'chat.html') {
+            if (page == 'chatclient.html') {
                 ReceiversSocketId = '';
             }
 
@@ -93,14 +97,17 @@ $(function () {
      * Fade out all for non logged in users (anonymous)
      *
      */
-    if (window.sessionStorage.getItem('usr') === null) {
+    if (window.localStorage.getItem('usr') === null) {
+        /**
+         *
+         */
         $('#bwChatSystemClient').fadeOut();
         $('#OperatorContainer').fadeOut();
         $('.chat-messages').fadeOut();
-        $('#loginmaske').fadeIn();
+        $('#logincontainer').fadeIn();
     }
 
-    $('#loginmaske').submit(function (e) {
+    $('#logincontainer').submit(function (e) {
         e.preventDefault();
         /**
          *
@@ -111,13 +118,13 @@ $(function () {
         /**
          *
          */
-        window.sessionStorage.setItem('usr', usr);
-        window.sessionStorage.setItem('room', room);
+        window.localStorage.setItem('usr', usr);
+        window.localStorage.setItem('room', room);
 
         /**
          *
          */
-        $('#loginmaske').fadeOut();
+        $('#logincontainer').fadeOut();
         $('#OperatorContainer').fadeIn();
         $('#bwChatSystemClient').fadeIn();
         $('.chat-messages').fadeIn();

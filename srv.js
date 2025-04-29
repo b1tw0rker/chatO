@@ -65,12 +65,17 @@ io.on('connection', (socket) => {
     // https://stackoverflow.com/questions/20632401/how-to-send-two-variables-in-one-message-using-socket-io
     socket.on('send-user-and-room-name', ({ username, room }) => {
         if (username != '' && room != '') {
+            /** */
             const user = userJoin(socket.id, username, room);
             const operator = getUserByName('Nick'); // Get operator Nick
 
             socket.join(user.room);
 
-            // Welcome current user
+            /**
+             *
+             * Send Welcome message for current user
+             *
+             */
             if (operator) {
                 if (operator.id != socket.id) {
                     socket.emit('message', formatMessage(botName, `Willkommen ${user.username}. Ein Operator wird gesucht. Einen Augenblick...`));
@@ -99,6 +104,7 @@ io.on('connection', (socket) => {
             }
         }
     });
+
     console.log('✅ New User joined chat.');
     io.emit('userJoin', { for: 'everyone' });
 

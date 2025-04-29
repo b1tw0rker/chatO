@@ -12,8 +12,16 @@ $(function () {
      */
     $('#users').on('click', 'li', function (e) {
         e.preventDefault();
+
+        /**
+         * Vars
+         */
         let socketid = e.target.id;
         let name = $(this).text();
+
+        /**
+         *
+         */
         $('#ReceiversSocketId').val(socketid);
         $('#m').attr('placeholder', 'Deine Nachricht an ' + name);
         $('#users li').css('color', '#e15d10');
@@ -41,7 +49,7 @@ $(function () {
      * Autologin
      *
      */
-    if (window.sessionStorage.getItem('usr') != 'Nick') {
+    if (window.localStorage.getItem('usr') != 'Nick') {
         $('#login').trigger('click');
     }
 });

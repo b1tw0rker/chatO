@@ -29,8 +29,10 @@ https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/
 
 ### Linux StartScript
 
+#### Name: bwChartServer.service
+
 [Unit]
-Description=chatO - Operator Chat System
+Description=bwChatServer - Operator ChatBot System
 Documentation=https://www.host-x.de
 After=network.target
 
@@ -38,30 +40,11 @@ After=network.target
 Environment=NODE_PORT=3000
 Type=simple
 User=root
-ExecStart=/usr/bin/node /opt/chatO/srv.js
+ExecStart=/usr/bin/node /opt/bwChatServer/srv.js
 Restart=on-failure
 Environment=PATH=/usr/bin:/usr/local/bin
 Environment=NODE_ENV=production
-WorkingDirectory=/opt/chatO/
-
-[Install]
-WantedBy=multi-user.target
-
-### Linux StartScript
-[Unit]
-Description=chatO - Operator Chat System
-Documentation=https://www.host-x.de
-After=network.target
-
-[Service]
-Environment=NODE_PORT=3000
-Type=simple
-User=root
-ExecStart=/usr/bin/node /opt/chatO/srv.js
-Restart=on-failure
-Environment=PATH=/usr/bin:/usr/local/bin
-Environment=NODE_ENV=production
-WorkingDirectory=/opt/chatO/
+WorkingDirectory=/opt/bwChatServer/
 
 [Install]
 WantedBy=multi-user.target

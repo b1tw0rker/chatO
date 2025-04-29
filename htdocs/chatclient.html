@@ -15,10 +15,11 @@
     </head>
 
     <body>
-        <div id="loginmaske" style="display: none; margin-top: 4rem">
+        <!-- Login Form -->
+        <div id="logincontainer" style="display: none">
             <form action="javascript:void(0);" autocomplete="off">
                 <center>
-                    <input type="text" placeholder="Dein Name" id="usr" required />
+                    <input type="text" placeholder="Dein Name" id="usr" onkeypress="return /[a-z0-9öäü]/i.test(event.key)" required />
                     <input type="hidden" id="room" value="www.host-x.de" />
                     <br />
                     <br />
