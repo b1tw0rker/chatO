@@ -93,11 +93,12 @@ io.on('connection', (socket) => {
             });
 
             /**
+             *
              * Send Sound Play
+             *
              */
             if (operator) {
                 if (operator.id != socket.id) {
-                    // do send a ring to my own
                     //console.log("Ring Receiver: " + operator.id);
                     io.emit('userRing', { for: operator.id });
                 }
@@ -106,6 +107,7 @@ io.on('connection', (socket) => {
     });
 
     console.log('✅ New User joined chat.');
+
     io.emit('userJoin', { for: 'everyone' });
 
     /**
@@ -147,7 +149,7 @@ io.on('connection', (socket) => {
             }
         }
         try {
-            console.log('✅ SEND MESSAGE: Receiver 001: ' + receiver + ' - Receiver 002: ' + socket.id);
+            console.log('✅ SEND MESSAGE: Sender: ' + receiver + ' - Receiver: ' + socket.id);
             io.to(receiver).to(socket.id).emit('message', formatMessage(from.username, msg, socket.id));
         } catch (e) {
             console.log(e);

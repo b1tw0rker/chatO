@@ -39,13 +39,24 @@ $(function () {
         obj.src = './assets/audio/beep.mp3';
         obj.play();
 
-        // Scroll down
-        document.querySelector('.chat-messages').scrollTop = document.querySelector('.chat-messages').scrollHeight;
+        /**
+         * Scroll to bottom
+         */
+        const chatContainer = document.querySelector('.chat-messages-container');
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        const chatContainerOperator = document.querySelector('.chat-messages-operator-container');
+        if (chatContainerOperator) {
+            chatContainerOperator.scrollTop = chatContainerOperator.scrollHeight;
+        }
     });
 
     /**
      *
-     * Send a new message (Client and Operator use this)
+     * Send a new message (Clients and Operators use this function)
+     * Todo: Should be devided into two functions in two separate files
      *
      */
     $('#bwChatSystemClient, #bwChatSystemOperator').on('keydown', function (e) {
@@ -78,6 +89,9 @@ $(function () {
                 }
                 return;
             }
+            if ($('#msg').val() == '') {
+                return;
+            }
 
             // Emit Message
             if (page == 'operator.html') {
@@ -103,7 +117,7 @@ $(function () {
          */
         $('#bwChatSystemClient').fadeOut();
         $('#OperatorContainer').fadeOut();
-        $('.chat-messages').fadeOut();
+        $('.chat-messages-container').fadeOut();
         $('#logincontainer').fadeIn();
     }
 
@@ -127,7 +141,7 @@ $(function () {
         $('#logincontainer').fadeOut();
         $('#OperatorContainer').fadeIn();
         $('#bwChatSystemClient').fadeIn();
-        $('.chat-messages').fadeIn();
+        $('.chat-messages-container').fadeIn();
         /**
          *
          */
@@ -172,8 +186,8 @@ function outputUsers(users) {
  * Output message to DOM
  *
  */
-const chatForm = document.getElementById('chat-form');
-const chatMessages = document.querySelector('.chat-messages');
+//const chatForm = document.getElementById('chat-form');
+//const chatMessages = document.querySelector('.chat-messages-container');
 
 function outputMessage(message) {
     /**
@@ -191,8 +205,8 @@ function outputMessage(message) {
     /**
      *
      */
-    $('.chat-messages').append(
-        $('<div class="message ' + class_message + '"><p class="meta">' + message.username + '<span> ' + message.time + '</span></p><p class="text">' + message.text + '</p></div>')
+    $('.chat-messages-container').append(
+        $('<div class="bubble ' + class_message + '"><p class="meta">' + message.username + '<span> ' + message.time + '</span></p><p class="text">' + message.text + '</p></div>')
             .hide()
             .fadeIn()
     );
