@@ -1,50 +1,26 @@
+// Datei: users.js (im utils-Verzeichnis)
 const users = [];
 
-/**
- *
- * Join user to chat
- *
- */
-function userJoin(id, username, room) {
-    const user = { id, username, room };
+// Join user to chat
+function userJoin(id, username, kanal, role = 'user') {
+    const user = { id, username, kanal, role };
 
-    //console.log(id);
-
-    /**
-     * Get unique user from array -> by Nick
-     * instead of:  users.push(user);
-     */
-    const index = users.findIndex((user) => user.id === id);
-    if (index === -1) {
-        users.push(user);
-    }
+    users.push(user);
 
     return user;
 }
 
-/**
- *
- * Get current user by id
- *
- */
+// Get current user
 function getCurrentUser(id) {
     return users.find((user) => user.id === id);
 }
 
-/**
- *
- * Get current user by Name
- *
- */
+// Get user by name
 function getUserByName(username) {
     return users.find((user) => user.username === username);
 }
 
-/**
- *
- * User leaves chat
- *
- */
+// User leaves chat
 function userLeave(id) {
     const index = users.findIndex((user) => user.id === id);
 
@@ -53,22 +29,21 @@ function userLeave(id) {
     }
 }
 
-/**
- *
- * Get room users
- *
- */
-function getRoomUsers(room) {
-    return users.filter((user) => user.room === room);
+// Get kanal users (all users in a kanal)
+function getKanalUsers(kanal) {
+    return users.filter((user) => user.kanal === kanal);
 }
 
-/**
- *
- */
+// Get kanal operators (only users with role 'operator' in a kanal)
+function getKanalOperators(kanal) {
+    return users.filter((user) => user.kanal === kanal && user.role === 'operator');
+}
+
 module.exports = {
     userJoin,
     getCurrentUser,
     getUserByName,
     userLeave,
-    getRoomUsers,
+    getKanalUsers,
+    getKanalOperators,
 };

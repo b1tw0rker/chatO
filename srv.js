@@ -1,10 +1,11 @@
+// Datei: srv.js
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
 const formatMessage = require('./utils/messages');
-const { userJoin, getCurrentUser, getUserByName, userLeave, getRoomUsers } = require('./utils/users');
+const { userJoin, getCurrentUser, getUserByName, userLeave, getKanalUsers, getKanalOperators } = require('./utils/users');
 
 /**
  *
@@ -63,68 +64,75 @@ io.on('connection', (socket) => {
      * https://stackoverflow.com/questions/20632401/how-to-send-two-variables-in-one-message-using-socket-io
      *
      */
-    socket.on('send-user-and-room-name', ({ username, room }) => {
-        if (username != '' && room != '') {
+    socket.on('send-user-and-kanal-name', ({ username, kanal, role }) => {
+        if (username != '' && kanal != '') {
             /** */
-            const user = userJoin(socket.id, username, room);
-            const operator = getUserByName('Nick'); // Get operator Nick
+            // Default role to 'user' if not provided
+            role = role || 'user';
 
-            socket.join(user.room);
+            const user = userJoin(socket.id, username, kanal, role);
+            // Find operators in this kanal
+            const operators = getKanalOperators(kanal);
+
+            console.log(`✅ New ${role}: ${username} joined chat.`);
+
+            socket.join(user.kanal);
 
             /**
              *
              * Send Welcome message for current user
              *
              */
-            if (operator) {
-                if (operator.id != socket.id) {
+            if (role === 'user') {
+                if (operators.length > 0) {
                     socket.emit('message', formatMessage(botName, `Willkommen ${user.username}. Ein Operator wird gesucht. Einen Augenblick...`));
+                } else {
+                    socket.emit('message', formatMessage(botName, `Willkommen ${user.username}. Leider ist derzeit kein Operator verfügbar.`));
                 }
             }
 
             /**
              *
-             * Send users and room info
+             * Send users and kanal info
              *
              */
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: getRoomUsers(user.room),
+            io.to(user.kanal).emit('kanalUsers', {
+                kanal: user.kanal,
+                users: getKanalUsers(user.kanal).filter((u) => u.role === 'user'),
+                operators: getKanalOperators(user.kanal),
             });
 
             /**
              *
-             * Send Sound Play
+             * Send Sound Play to operators when a new user joins
              *
              */
-            if (operator) {
-                if (operator.id != socket.id) {
-                    //console.log("Ring Receiver: " + operator.id);
-                    io.emit('userRing', { for: operator.id });
-                }
+            if (role === 'user') {
+                operators.forEach((operator) => {
+                    io.to(operator.id).emit('userRing', { for: operator.id });
+                });
             }
         }
     });
-
-    console.log('✅ New User joined chat.');
 
     io.emit('userJoin', { for: 'everyone' });
 
     /**
      *
-     * User leaves room
+     * User leaves kanal
      *
      */
     socket.on('disconnect', () => {
         const user = userLeave(socket.id);
 
         if (user) {
-            io.to(user.room).emit('message', formatMessage(botName, `${user.username} hat den Chat verlassen.`));
+            io.to(user.kanal).emit('message', formatMessage(botName, `${user.username} hat den Chat verlassen.`));
 
-            // Send users and room info
-            io.to(user.room).emit('roomUsers', {
-                room: user.room,
-                users: getRoomUsers(user.room),
+            // Send users and kanal info
+            io.to(user.kanal).emit('kanalUsers', {
+                kanal: user.kanal,
+                users: getKanalUsers(user.kanal).filter((u) => u.role === 'user'),
+                operators: getKanalOperators(user.kanal),
             });
         }
     });
@@ -134,25 +142,102 @@ io.on('connection', (socket) => {
      * Emit some message
      *
      */
-    socket.on('ChatMessageOneToOne', ({ msg, ReceiversSocketId }) => {
+    socket.on('ChatMessageOneToOne', ({ msg, ReceiversSocketId, role }) => {
         let receiver = '';
         const from = getCurrentUser(socket.id); // from user
-        const to = getUserByName('Nick'); // to user
-        if (ReceiversSocketId.length > 3) {
+
+        if (ReceiversSocketId && ReceiversSocketId.length > 3) {
             receiver = ReceiversSocketId;
         } else {
             try {
-                receiver = to.id;
+                // Try to find an operator
+                const operators = getKanalOperators(from.kanal);
+                if (operators.length > 0) {
+                    receiver = operators[0].id;
+                } else {
+                    socket.emit('message', formatMessage(botName, 'Es ist noch kein Mitarbeiter im Chat.'));
+                    return;
+                }
             } catch (e) {
                 socket.emit('message', formatMessage(botName, 'Es ist noch kein Mitarbeiter im Chat.'));
                 console.log(e);
+                return;
             }
         }
+
         try {
-            console.log('✅ SEND MESSAGE: Sender: ' + receiver + ' - Receiver: ' + socket.id);
-            io.to(receiver).to(socket.id).emit('message', formatMessage(from.username, msg, socket.id));
+            console.log('✅ SEND MESSAGE: Sender: ' + from.id + ' - Receiver: ' + receiver);
+            io.to(receiver).to(socket.id).emit('message', formatMessage(from.username, msg, socket.id, from.role));
         } catch (e) {
             console.log(e);
+        }
+    });
+
+    /**
+     * Typing Indicator Handling
+     */
+    socket.on('typing', ({ username, role, receiverSocketId }) => {
+        try {
+            if (receiverSocketId && receiverSocketId.length > 3) {
+                // Sende Typing-Indikator nur an den spezifischen Empfänger
+                io.to(receiverSocketId).emit('typing', { username, role });
+                console.log(`✅ TYPING: ${username} (${role}) is typing (to ${receiverSocketId})`);
+            } else {
+                // Wenn kein spezifischer Empfänger angegeben ist
+                const user = getCurrentUser(socket.id);
+                if (user) {
+                    // Wenn der Tipper ein Client ist, sende an alle Operatoren im Kanal
+                    if (user.role === 'user') {
+                        const operators = getKanalOperators(user.kanal);
+                        operators.forEach((operator) => {
+                            io.to(operator.id).emit('typing', { username, role });
+                        });
+                        console.log(`✅ TYPING: ${username} (${role}) is typing (to all operators)`);
+                    } else {
+                        // Wenn der Tipper ein Operator ist, sende an den ausgewählten User
+                        if (receiverSocketId) {
+                            io.to(receiverSocketId).emit('typing', { username, role });
+                            console.log(`✅ TYPING: ${username} (${role}) is typing (to specific user)`);
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.log('Error in typing event:', e);
+        }
+    });
+
+    /**
+     * Stop Typing Indicator Handling
+     */
+    socket.on('stopTyping', ({ username, role, receiverSocketId }) => {
+        try {
+            if (receiverSocketId && receiverSocketId.length > 3) {
+                // Sende StopTyping-Indikator nur an den spezifischen Empfänger
+                io.to(receiverSocketId).emit('stopTyping', { username, role });
+                console.log(`✅ STOP TYPING: ${username} (${role}) stopped typing (to ${receiverSocketId})`);
+            } else {
+                // Wenn kein spezifischer Empfänger angegeben ist
+                const user = getCurrentUser(socket.id);
+                if (user) {
+                    // Wenn der Tipper ein Client ist, sende an alle Operatoren im Kanal
+                    if (user.role === 'user') {
+                        const operators = getKanalOperators(user.kanal);
+                        operators.forEach((operator) => {
+                            io.to(operator.id).emit('stopTyping', { username, role });
+                        });
+                        console.log(`✅ STOP TYPING: ${username} (${role}) stopped typing (to all operators)`);
+                    } else {
+                        // Wenn der Tipper ein Operator ist, sende an den ausgewählten User
+                        if (receiverSocketId) {
+                            io.to(receiverSocketId).emit('stopTyping', { username, role });
+                            console.log(`✅ STOP TYPING: ${username} (${role}) stopped typing (to specific user)`);
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.log('Error in stopTyping event:', e);
         }
     });
 });

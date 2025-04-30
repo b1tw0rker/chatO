@@ -1,3 +1,4 @@
+<!-- Datei: chatclient.html -->
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -9,31 +10,28 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" />
         <script src="./socket.io/socket.io.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="./assets/js/client.min.js"></script>
-        <link rel="stylesheet" href="./assets/css/style.min.css" />
+        <script src="./assets/js/client.js"></script>
+        <link rel="stylesheet" href="./assets/css/style-client.css" />
         <title>Chat Client</title>
     </head>
-
     <body>
         <!-- Login Form -->
-        <div id="logincontainer" style="display: none">
+        <div id="logincontainerUsr" style="display: none">
             <form action="javascript:void(0);" autocomplete="off">
                 <center>
-                    <input type="text" placeholder="Dein Name" id="usr" onkeypress="return /[a-z0-9öäü]/i.test(event.key)" required />
-                    <input type="hidden" id="room" value="www.host-x.de" />
+                    <input type="text" placeholder="Dein Name" name="chatusr" id="chatusr" onkeypress="return /[a-z0-9öäü]/i.test(event.key)" required />
+                    <input type="hidden" name="kanal" id="kanal" value="www.host-x.de" />
+                    <input type="hidden" name="role" id="role" value="user" />
                     <br />
                     <br />
                     <button id="login" class="btn">Chat starten</button>
                 </center>
             </form>
         </div>
-
-        <div id="room-name" style="display: none"></div>
+        <div id="kanal-name" style="display: none"></div>
         <div id="users" style="display: none"></div>
-
         <div class="chat-messages-container"></div>
-
-        <div id="bwChatSystemClient" class="bwChatClient">
+        <div id="bwChatSystemClient" class=" ">
             <center>
                 <input id="msg" autocomplete="off" placeholder="Deine Nachricht" class="bwClientInput" />
                 <input type="hidden" id="ReceiversSocketId" />
